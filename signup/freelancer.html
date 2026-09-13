@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل المستقل | منجز Monjiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="../index.html" class="brand">
+        <span class="brand-mark">م</span>
+        <span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../index.html" data-i18n="nav.home">الرئيسية</a>
+        <a href="../freelancers.html" data-i18n="nav.freelancers">المستقلون</a>
+        <div class="lang-switch" aria-label="Language"></div>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="auth-page">
+    <form class="auth-card" id="freelancerForm" novalidate>
+      <a href="../index.html" class="brand">
+        <span class="brand-mark">م</span>
+        <span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span>
+      </a>
+      <div class="auth-head">
+        <h1 data-i18n="auth.freelancerTitle">انضم كمستقل</h1>
+        <p data-i18n="auth.freelancerSub">اعرض موهبتك على مئات الشركات المصرية وابدأ في استقبال المهام.</p>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="fName" data-i18n="auth.name">الاسم الكامل</label>
+          <input class="input" id="fName" name="name" type="text" required data-i18n-ph="ph.name" />
+        </div>
+        <div class="field">
+          <label for="fPhone" data-i18n="auth.phone">رقم الواتساب</label>
+          <input class="input" id="fPhone" name="phone" type="tel" required data-i18n-ph="ph.phone" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="fEmail" data-i18n="auth.email">البريد الإلكتروني</label>
+        <input class="input" id="fEmail" name="email" type="email" required data-i18n-ph="ph.email" />
+      </div>
+
+      <div class="field">
+        <label for="fNiche" data-i18n="auth.niche">تخصصك الرئيسي</label>
+        <select class="input" id="fNiche" name="niche" required>
+          <option value="" disabled selected data-i18n="ph.niche">— اختر تخصصك —</option>
+          <option value="design" data-i18n="services.designT">تصميم ومحتوى بصري</option>
+          <option value="web" data-i18n="services.webT">تطوير مواقع</option>
+          <option value="marketing" data-i18n="services.mktT">تسويق رقمي</option>
+          <option value="business" data-i18n="services.bizT">دعم أعمال</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="fSkills"><span data-i18n="auth.skills">مهاراتك</span> <small data-i18n="auth.skillsHint">(افصل بينها بفاصلة)</small></label>
+        <input class="input" id="fSkills" name="skills" type="text" data-i18n-ph="ph.skills" />
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="fPortfolio" data-i18n="auth.portfolio">رابط معرض/بورتفوليو</label>
+          <input class="input" id="fPortfolio" name="portfolio" type="url" data-i18n-ph="ph.portfolio" />
+        </div>
+        <div class="field">
+          <label for="fRate" data-i18n="auth.rate">أجرك التقريبي (ج.م)</label>
+          <input class="input" id="fRate" name="rate" type="number" data-i18n-ph="ph.rate" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="fExp" data-i18n="auth.experience">سنوات الخبرة</label>
+        <select class="input" id="fExp" name="experience">
+          <option data-i18n="auth.exp1">أقل من سنة</option>
+          <option data-i18n="auth.exp2">١ - ٣ سنوات</option>
+          <option data-i18n="auth.exp3">٣ - ٥ سنوات</option>
+          <option data-i18n="auth.exp4">أكثر من ٥ سنوات</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="fPass" data-i18n="auth.password">كلمة المرور</label>
+        <input class="input" id="fPass" name="password" type="password" required minlength="8" data-i18n-ph="ph.password" />
+        <small data-i18n="auth.passHint">٨ أحرف على الأقل</small>
+      </div>
+
+      <div class="field">
+        <label for="fBio" data-i18n="auth.bio">نبذة قصيرة عنك</label>
+        <textarea class="input" id="fBio" name="bio" rows="3" data-i18n-ph="ph.bio" placeholder="أنا مصمم جرافيك بخبرة ٥ سنوات..."></textarea>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" required />
+        <span data-i18n="auth.terms">أوافق على شروط الاستخدام وسياسة الخصوصية في منجز.</span>
+      </label>
+
+      <button type="submit" class="btn btn-dark btn-block" data-i18n="auth.submitFreelancer">إنشاء حساب المستقل</button>
+
+      <p class="auth-alt"><a href="../signup/client.html" data-i18n="auth.switchToC">سجّل كعميل</a></p>
+      <p class="form-note" data-i18n="auth.reviewNote">سيتم مراجعة ملفك يدويًا قبل ظهوره في قوائم المستقلين.</p>
+    </form>
+  </section>
+
+  <script src="../js/i18n.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

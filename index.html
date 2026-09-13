@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منجز | Monjiz</title>
+  <meta name="description" content="Monjiz — منجز. Egyptian professionals who get your work done." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">م</span>
+        <span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#services" data-i18n="nav.services">الخدمات</a>
+        <a href="freelancers.html" data-i18n="nav.freelancers">المستقلون</a>
+        <a href="#how" data-i18n="nav.how">كيف يعمل</a>
+        <a href="#why" data-i18n="nav.why">لماذا منجز</a>
+        <a href="#about" data-i18n="nav.about">من نحن</a>
+        <div class="lang-switch" aria-label="Language"></div>
+      </nav>
+      <a href="signup/client.html" class="btn btn-light btn-nav" data-i18n="nav.client">للعملاء</a>
+      <a href="signup/freelancer.html" class="btn btn-dark btn-nav" data-i18n="nav.join">انضم كمستقل</a>
+      <button class="nav-toggle" id="navToggle" aria-label="القائمة">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="container hero-inner">
+      <p class="hero-tag" data-i18n="hero.tag">منصة عربية للمحترفين المصريين</p>
+      <h1 class="hero-title" data-i18n="hero.title">محترفونا <span>سيتكفلون بالباقي</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">محترفون مصريون موثقون ينجزون لك مهامك بجودة عالية وسرعة فائقة.</p>
+      <div class="hero-actions">
+        <a href="signup/client.html" class="btn btn-light" data-i18n="hero.ctaClient">انشر مهمة — للعملاء</a>
+        <a href="signup/freelancer.html" class="btn btn-ghost" data-i18n="hero.ctaJoin">انضم كمستقل</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong data-i18n="hero.s1n">+٣٠٠</strong><span data-i18n="hero.s1l">محترف موثق</span></div>
+        <div class="stat"><strong data-i18n="hero.s2n">+١٠٠٠</strong><span data-i18n="hero.s2l">مهمة منجزة</span></div>
+        <div class="stat"><strong data-i18n="hero.s3n">٤ نجوم</strong><span data-i18n="hero.s3l">متوسط التقييم</span></div>
+        <div class="stat"><strong data-i18n="hero.s4n">٥ دقائق</strong><span data-i18n="hero.s4l">متوسط الرد</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE (scrolling niches) ===== -->
+  <div class="marquee" dir="ltr">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <a class="marquee-item" href="freelancers.html?niche=design"><span class="mico">✦</span><span data-i18n="niche.design">تصميم</span></a>
+        <a class="marquee-item" href="freelancers.html?niche=web"><span class="mico">▣</span><span data-i18n="niche.web">تطوير مواقع</span></a>
+        <a class="marquee-item" href="freelancers.html?niche=marketing"><span class="mico">▲</span><span data-i18n="niche.marketing">تسويق رقمي</span></a>
+        <a class="marquee-item" href="freelancers.html?niche=business"><span class="mico">◈</span><span data-i18n="niche.business">دعم أعمال</span></a>
+      </div>
+      <div class="marquee-content" aria-hidden="true">
+        <a class="marquee-item" href="freelancers.html?niche=design" tabindex="-1"><span class="mico">✦</span><span data-i18n="niche.design">تصميم</span></a>
+        <a class="marquee-item" href="freelancers.html?niche=web" tabindex="-1"><span class="mico">▣</span><span data-i18n="niche.web">تطوير مواقع</span></a>
+        <a class="marquee-item" href="freelancers.html?niche=marketing" tabindex="-1"><span class="mico">▲</span><span data-i18n="niche.marketing">تسويق رقمي</span></a>
+        <a class="marquee-item" href="freelancers.html?niche=business" tabindex="-1"><span class="mico">◈</span><span data-i18n="niche.business">دعم أعمال</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="services.eyebrow">خدماتنا</span>
+        <h2 data-i18n="services.title">أقسامنا الرئيسية</h2>
+        <p data-i18n="services.sub">اختر الخبرة التي تحتاجها من بين أقسامنا المتنوعة</p>
+      </div>
+      <div class="grid services-grid">
+        <article class="service-card">
+          <div class="card-icon">✦</div>
+          <h3 data-i18n="services.designT">التصميم والمحتوى البصري</h3>
+          <p data-i18n="services.designS">Visual Content &amp; Design</p>
+          <ul>
+            <li data-i18n="services.design1">شعارات وهويات بصرية</li>
+            <li data-i18n="services.design2">تصميم سوشيال ميديا</li>
+            <li data-i18n="services.design3">مونتاج وتصميم فيديو</li>
+          </ul>
+          <a href="freelancers.html?niche=design" class="card-link" data-i18n="services.browse">استعرض المستقلين</a>
+        </article>
+        <article class="service-card">
+          <div class="card-icon">▣</div>
+          <h3 data-i18n="services.webT">تطوير المواقع</h3>
+          <p data-i18n="services.webS">Website Developers</p>
+          <ul>
+            <li data-i18n="services.web1">مواقع تعريفية ومتاجر</li>
+            <li data-i18n="services.web2">تطبيقات ويب</li>
+            <li data-i18n="services.web3">صيانة وتحسين أداء</li>
+          </ul>
+          <a href="freelancers.html?niche=web" class="card-link" data-i18n="services.browse">استعرض المستقلين</a>
+        </article>
+        <article class="service-card">
+          <div class="card-icon">▲</div>
+          <h3 data-i18n="services.mktT">التسويق الرقمي والسوشيال ميديا</h3>
+          <p data-i18n="services.mktS">Digital Marketing &amp; Social Media</p>
+          <ul>
+            <li data-i18n="services.mkt1">إدارة صفحات التواصل</li>
+            <li data-i18n="services.mkt2">حملات إعلانية ممولة</li>
+            <li data-i18n="services.mkt3">كتابة محتوى ومقالات</li>
+          </ul>
+          <a href="freelancers.html?niche=marketing" class="card-link" data-i18n="services.browse">استعرض المستقلين</a>
+        </article>
+        <article class="service-card">
+          <div class="card-icon">◈</div>
+          <h3 data-i18n="services.bizT">دعم الأعمال</h3>
+          <p data-i18n="services.bizS">Business Support</p>
+          <ul>
+            <li data-i18n="services.biz1">إدخال ومعالجة بيانات</li>
+            <li data-i18n="services.biz2">أبحاث ومهام إدارية</li>
+            <li data-i18n="services.biz3">مساعدة المكتب والمشاريع</li>
+          </ul>
+          <a href="freelancers.html?niche=business" class="card-link" data-i18n="services.browse">استعرض المستقلين</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== POPULAR SERVICES ===== -->
+  <section class="section section-alt" id="popular">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="popular.eyebrow">الخدمات الأكثر طلباً</span>
+        <h2 data-i18n="popular.title">الخدمات الأكثر طلباً</h2>
+        <p data-i18n="popular.sub">أشهر المهام التي ينجزها محترفونا</p>
+      </div>
+      <div class="chips">
+        <span class="chip" data-i18n="popular.chip1">تصميم لوجو احترافي</span>
+        <span class="chip" data-i18n="popular.chip2">هوية بصرية متكاملة</span>
+        <span class="chip" data-i18n="popular.chip3">موقع إلكتروني للمتجر</span>
+        <span class="chip" data-i18n="popular.chip4">صفحة لاندينج</span>
+        <span class="chip" data-i18n="popular.chip5">إدارة إنستجرام</span>
+        <span class="chip" data-i18n="popular.chip6">حملة إعلانية ممولة</span>
+        <span class="chip" data-i18n="popular.chip7">مونتاج فيديو</span>
+        <span class="chip" data-i18n="popular.chip8">كتابة محتوى تسويقي</span>
+        <span class="chip" data-i18n="popular.chip9">تصميم بوستات</span>
+        <span class="chip" data-i18n="popular.chip10">أتمتة مهام</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="how.eyebrow">كيف يعمل</span>
+        <h2 data-i18n="how.title">كيف يعمل منجز؟</h2>
+        <p data-i18n="how.sub">ثلاث خطوات بسيطة تفصلك عن نتيجة احترافية</p>
+      </div>
+      <div class="grid steps">
+        <article class="step">
+          <div class="step-num">١</div>
+          <h3 data-i18n="how.s1t">اختر خدمتك</h3>
+          <p data-i18n="how.s1d">تصفح أقسامنا واختر الخبرة التي تحتاجها، أو قم بنشر مهمة خاصة.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">٢</div>
+          <h3 data-i18n="how.s2t">تواصل مع محترف</h3>
+          <p data-i18n="how.s2d">سنقوم بتوصيلك بمقدّم خدمة موثّق يناسب ميزانيتك وجدولك الزمني.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">٣</div>
+          <h3 data-i18n="how.s3t">احصل على النتائج</h3>
+          <p data-i18n="how.s3d">استلم عملك بجودة عالية وادفع بأمان عبر إنستا باي أو فودافون كاش.</p>
+        </article>
+      </div>
+      <div class="free-cta">
+        <p data-i18n="how.free">عندك مهمة بسيطة؟ مش لازم تختار خدمة كاملة!</p>
+        <a href="signup/client.html" class="btn btn-dark" data-i18n="how.freeCta">انشر مهمة — إنها مجانية!</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CHOOSE ===== -->
+  <section class="section section-dark" id="why">
+    <div class="container">
+      <div class="section-head light">
+        <span class="eyebrow" data-i18n="why.eyebrow">لماذا منجز</span>
+        <h2 data-i18n="why.title">ليش تختار منجز؟</h2>
+      </div>
+      <div class="grid why-grid">
+        <div class="why-item"><div class="why-icon">◎</div><h3 data-i18n="why.1t">خبرة محلية</h3><p data-i18n="why.1d">مواهبنا تفهم السوق المصري والثقافة واللغة العامية.</p></div>
+        <div class="why-item"><div class="why-icon">➔</div><h3 data-i18n="why.2t">السرعة</h3><p data-i18n="why.2d">لا توجد فترات انتظار لمدة ١٤ يومًا؛ إنجاز المهام الآن.</p></div>
+        <div class="why-item"><div class="why-icon">✓</div><h3 data-i18n="why.3t">جودة موثقة</h3><p data-i18n="why.3d">نراجع كل سابقة أعمال يدويًا لتوفير وقتك.</p></div>
+        <div class="why-item"><div class="why-icon">◉</div><h3 data-i18n="why.4t">دفع آمن</h3><p data-i18n="why.4d">ادفع بأمان عبر إنستا باي أو فودافون كاش بعد رضاك.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW TO PAY ===== -->
+  <section class="section" id="pay">
+    <div class="container">
+      <div class="pay-card">
+        <div class="pay-info">
+          <span class="eyebrow" data-i18n="pay.eyebrow">طرق الدفع</span>
+          <h2 data-i18n="pay.title">كيف تدفع؟</h2>
+          <p data-i18n="pay.desc">تتم معالجة المدفوعات بأمان عبر إنستا باي أو فودافون كاش.</p>
+        </div>
+        <div class="pay-methods">
+          <span class="pay-badge">InstaPay</span>
+          <span class="pay-badge">Vodafone Cash</span>
+          <span class="pay-badge" data-i18n="pay.secure">دفع آمن</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section section-soft" id="about">
+    <div class="container">
+      <div class="about-wrap">
+        <div class="about-text">
+          <span class="eyebrow" data-i18n="about.eyebrow">في قلب مصر</span>
+          <h2 data-i18n="about.title">من هو منجز؟</h2>
+          <p data-i18n="about.p1">يعمل منجز على سد الفجوة بين المواهب المحلية والشركات.</p>
+          <p data-i18n="about.p2">وبالنسبة للمستقلين، يعني هذا استلام المدفوعات بسرعة وأمان؛ وللعملاء راحة البال.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-avatar">ع</div>
+          <div class="about-name">
+            <h3>AbdAllah Atef</h3>
+            <p data-i18n="about.founder">مؤسس منجز</p>
+          </div>
+          <p class="about-quote" data-i18n="about.quote">"عايز ترفع مستوى البراند بتاعك وتخليه يبان بشكل احترافي فعلاً؟ أنا هنا أساعدك تحقق ده ✨"</p>
+          <a class="btn btn-beige btn-block" href="https://wa.me/201556554537" target="_blank" rel="noopener" data-i18n="about.wa">تواصل عبر واتساب</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== START CTA ===== -->
+  <section class="start-cta" id="start">
+    <div class="container center">
+      <h2 data-i18n="start.title">جاهز تنجز مهامك؟</h2>
+      <p data-i18n="start.desc">انضم إلى مئات الشركات المصرية التي تتقدم وتنمو مع منجز.</p>
+      <div class="start-actions">
+        <a href="signup/client.html" class="btn btn-light" data-i18n="start.ctaClient">سجّل كعميل — ابدأ الآن</a>
+        <a href="signup/freelancer.html" class="btn btn-ghost" data-i18n="start.ctaJoin">انضم كمستقل</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark">م</span><span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span></a>
+        <p data-i18n="footer.slogan">محترفون مصريون ينجزون عملك بجودة وسرعة وأمان.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.quick">روابط سريعة</h4>
+        <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+        <a href="freelancers.html" data-i18n="nav.freelancers">المستقلون</a>
+        <a href="signup/freelancer.html" data-i18n="nav.join">انضم كمستقل</a>
+        <a href="signup/client.html" data-i18n="nav.client">سجّل كعميل</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.talents">أنواع المواهب</h4>
+        <a href="freelancers.html?niche=design" data-i18n="footer.talent.design">تصميم</a>
+        <a href="freelancers.html?niche=web" data-i18n="footer.talent.web">تطوير مواقع</a>
+        <a href="freelancers.html?niche=marketing" data-i18n="footer.talent.marketing">تسويق رقمي</a>
+        <a href="freelancers.html?niche=business" data-i18n="footer.talent.business">دعم أعمال</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.contact">تواصل معنا</h4>
+        <a href="https://wa.me/201556554537" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="#about" data-i18n="nav.about">من نحن</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container"><p data-i18n="footer.rights">© 2026 منجز Monjiz — جميع الحقوق محفوظة.</p></div>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
