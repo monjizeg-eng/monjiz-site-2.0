@@ -11,12 +11,6 @@
   const noProfile = document.getElementById("noProfile");
   const roleNote = document.getElementById("roleNote");
 
-  // Admin shortcut (always shown; admin.html gates access)
-  const link = document.getElementById("adminLink");
-  link.style.display = "inline-block";
-  link.href = "admin.html";
-  if (await isAdmin(uid)) roleNote.textContent = "أنت مشرف — يمكنك إدارة الحسابات من لوحة المشرف.";
-
   const freelancer = await getFreelancerByAuth(uid);
   const client = await getClientByAuth(uid);
 
