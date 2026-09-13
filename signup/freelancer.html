@@ -37,9 +37,6 @@
         <p data-i18n="auth.freelancerSub">اعرض موهبتك على مئات الشركات المصرية وابدأ في استقبال المهام.</p>
       </div>
 
-      <button type="button" id="googleBtn" class="btn btn-light btn-block" style="border:1px solid var(--line);margin-bottom:8px">متابعة عبر Google</button>
-      <div style="text-align:center;color:var(--muted);font-size:13px;margin:6px 0 14px">— أو أكمل بالتسجيل —</div>
-
       <div class="row2">
         <div class="field">
           <label for="fName" data-i18n="auth.name">الاسم الكامل</label>
@@ -114,7 +111,6 @@
       <p class="auth-alt"><a href="../signup/client.html" data-i18n="auth.switchToC">سجّل كعميل</a></p>
       <p class="form-note" data-i18n="auth.reviewNote">سيتم مراجعة ملفك يدويًا قبل ظهوره في قوائم المستقلين.</p>
     </form>
-    <script>document.getElementById("googleBtn")?.addEventListener("click", () => signInGoogle("freelancer"));</script>
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

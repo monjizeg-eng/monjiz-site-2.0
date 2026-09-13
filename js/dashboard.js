@@ -20,33 +20,99 @@
     el.style.color = ok ? "#1a7f37" : "#b00020";
   };
 
-  /* ---------- Freelancer ---------- */
-  let portfolio = Array.isArray(freelancer?.portfolio) ? freelancer.portfolio : [];
-  let newAvatarUrl = freelancer?.avatar_url || "";
+  /* ---------- Projects (portfolio groups) ---------- */
+  let projects = [];
 
-  function renderWorks() {
-    const grid = document.getElementById("frWorksGrid");
-    grid.innerHTML = "";
-    portfolio.forEach((w, i) => {
-      const tile = document.createElement("div");
-      tile.className = "work-tile";
-      tile.innerHTML = `<img src="${w.url}" alt=""><button class="del" data-i="${i}">حذف</button>`;
-      grid.appendChild(tile);
-    });
-    grid.querySelectorAll(".del").forEach((b) =>
-      b.addEventListener("click", async () => {
-        const idx = +b.getAttribute("data-i");
-        const removed = portfolio[idx];
-        await removeWork(removed.path);
-        portfolio = portfolio.filter((_, j) => j !== idx);
-        renderWorks();
-      })
-    );
+  // Support both the new {title,link,images[]} format and the old [ {url,path} ] format
+  function normalize(portfolio) {
+    const arr = Array.isArray(portfolio) ? portfolio : [];
+    if (!arr.length) return [];
+    if (arr[0] && Array.isArray(arr[0].images)) return arr.map((p) => ({ title: p.title || "", link: p.link || "", images: Array.isArray(p.images) ? p.images : [] }));
+    return [{ title: "", link: "", images: JSON.parse(JSON.stringify(arr)) }];
   }
+
+  if (freelancer) projects = normalize(freelancer.portfolio);
+  if (!projects.length) projects = [{ title: "", link: "", images: [] }];
+
+  function renderProjects() {
+    const wrap = document.getElementById("projectsWrap");
+    wrap.innerHTML = "";
+    projects.forEach((p, i) => {
+      const card = document.createElement("div");
+      card.className = "project-card";
+      card.innerHTML = `
+        <div class="row2">
+          <div class="field"><label>اسم المشروع</label><input class="input p-title" value="${escAttr(p.title)}" placeholder="مثال: هوية لبراند كوفي"></div>
+          <div class="field"><label>رابط المشروع (اختياري)</label><input class="input p-link" value="${escAttr(p.link)}" placeholder="https://example.com"></div>
+        </div>
+        <div class="portfolio-grid">${p.images
+          .map((w, k) => `<div class="work-tile" data-k="${k}"><img src="${w.url}" alt=""><button class="del" data-k="${k}">حذف</button></div>`)
+          .join("")}</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+          <label class="btn btn-outline btn-sm" style="cursor:pointer;margin:0">أضف صورًا<input type="file" class="p-files" accept="image/*" multiple hidden></label>
+          <button class="btn btn-danger btn-sm p-del">حذف المشروع</button>
+        </div>`;
+      wrap.appendChild(card);
+
+      // upload photos for this project
+      card.querySelector(".p-files").addEventListener("change", async (e) => {
+        const files = Array.from(e.target.files);
+        e.target.value = "";
+        for (const file of files) {
+          const r = await uploadWork(uid, file);
+          if (!r.error) projects[i].images.push({ url: r.url, path: r.path });
+        }
+        renderProjects();
+      });
+
+      // delete an image
+      card.querySelectorAll(".del").forEach((b) =>
+        b.addEventListener("click", async () => {
+          const k = +b.getAttribute("data-k");
+          const removed = projects[i].images[k];
+          await removeWork(removed.path);
+          projects[i].images = projects[i].images.filter((_, x) => x !== k);
+          renderProjects();
+        })
+      );
+
+      // delete whole project
+      card.querySelector(".p-del").addEventListener("click", () => {
+        projects.splice(i, 1);
+        if (!projects.length) projects = [{ title: "", link: "", images: [] }];
+        renderProjects();
+      });
+    });
+  }
+
+  document.getElementById("addProject").addEventListener("click", () => {
+    projects.push({ title: "", link: "", images: [] });
+    renderProjects();
+  });
+
+  function collectFromDom() {
+    document.querySelectorAll(".project-card").forEach((card) => {
+      const i = projects.findIndex((p, idx) => card.getAttribute("data") === null);
+      // simpler: match by index order
+    });
+    // Rebuild from inputs by index
+    const cards = document.querySelectorAll(".project-card");
+    return projects.map((p, i) => {
+      const card = cards[i];
+      return {
+        title: card ? card.querySelector(".p-title").value.trim() : p.title,
+        link: card ? card.querySelector(".p-link").value.trim() : p.link,
+        images: p.images,
+      };
+    });
+  }
+
+  /* ---------- Freelancer ---------- */
+  let newAvatarUrl = freelancer?.avatar_url || "";
 
   if (freelancer) {
     fPanel.style.display = "block";
-    roleNote.textContent = roleNote.textContent || "أنت مسجّل كمستقل.";
+    roleNote.textContent = "أنت مسجّل كمستقل.";
     document.getElementById("frName").value = freelancer.name || "";
     document.getElementById("frPhone").value = freelancer.phone || "";
     document.getElementById("frEmail").value = freelancer.email || "";
@@ -55,12 +121,10 @@
     document.getElementById("frSkills").value = freelancer.skills || "";
     document.getElementById("frExp").value = freelancer.experience || "١ - ٣ سنوات";
     document.getElementById("frBio").value = freelancer.bio || "";
-    if (freelancer.avatar_url)
-      document.getElementById("avatarImg").src = freelancer.avatar_url;
+    if (freelancer.avatar_url) document.getElementById("avatarImg").src = freelancer.avatar_url;
     document.getElementById("viewMyProfile").href = "profile.html?id=" + (freelancer.id || "");
-    renderWorks();
+    renderProjects();
 
-    // avatar upload
     document.getElementById("frAvatarFile").addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -70,19 +134,8 @@
       document.getElementById("avatarImg").src = r.url;
     });
 
-    // works upload (multiple)
-    document.getElementById("frWorks").addEventListener("change", async (e) => {
-      const files = Array.from(e.target.files);
-      e.target.value = "";
-      for (const file of files) {
-        const r = await uploadWork(uid, file);
-        if (r.error) continue;
-        portfolio.push({ url: r.url, path: r.path });
-      }
-      renderWorks();
-    });
-
     document.getElementById("saveFreelancer").addEventListener("click", async () => {
+      const portfolio = collectFromDom().filter((p) => p.title || p.images.length);
       const patch = {
         name: document.getElementById("frName").value.trim(),
         phone: document.getElementById("frPhone").value.trim(),
@@ -103,7 +156,7 @@
   /* ---------- Client ---------- */
   if (client) {
     cPanel.style.display = "block";
-    roleNote.textContent = roleNote.textContent || "أنت مسجّل كعميل.";
+    roleNote.textContent = "أنت مسجّل كعميل.";
     document.getElementById("clName").value = client.name || "";
     document.getElementById("clCompany").value = client.company || "";
     document.getElementById("clPhone").value = client.phone || "";
@@ -125,9 +178,12 @@
 
   if (!freelancer && !client) noProfile.style.display = "block";
 
-  // Logout
   document.getElementById("logoutBtn").addEventListener("click", async () => {
     await signOut();
     location.href = "index.html";
   });
+
+  function escAttr(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
 })();

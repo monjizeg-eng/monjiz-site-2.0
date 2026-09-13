@@ -48,9 +48,7 @@
 
       <div id="loginMsg" style="font-size:14px;margin-bottom:12px"></div>
 
-      <button type="button" id="googleBtn" class="btn btn-light btn-block" style="border:1px solid var(--line)">متابعة عبر Google</button>
-      <div style="text-align:center;color:var(--muted);font-size:13px;margin:10px 0">— أو —</div>
-      <button type="submit" class="btn btn-dark btn-block">دخول بالبريد</button>
+      <button type="submit" class="btn btn-dark btn-block">دخول</button>
 
       <p class="auth-alt">مش عندك حساب؟ <a href="signup/freelancer.html">انضم كمستقل</a> · <a href="signup/client.html">سجّل كعميل</a></p>
       <p class="form-note">للمشرف: بعد الدخول ستنتقل تلقائيًا للوحة التحكم.</p>
@@ -64,8 +62,6 @@
   <script>
     const form = document.getElementById("loginForm");
     const msg = document.getElementById("loginMsg");
-
-    document.getElementById("googleBtn").addEventListener("click", () => signInGoogle(""));
 
     // If already logged in (incl. after Google redirect), ensure profile + go to dashboard
     (async () => {

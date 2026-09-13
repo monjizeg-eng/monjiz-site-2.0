@@ -44,7 +44,7 @@
       bio: u.bio || "",
       rateNum: parseFloat(u.rate) || 0,
       avatar: u.avatar_url || "",
-      thumb: (Array.isArray(u.portfolio) && u.portfolio[0] && u.portfolio[0].url) || "",
+      thumb: (Array.isArray(u.portfolio) && u.portfolio[0] && (u.portfolio[0].url || (u.portfolio[0].images && u.portfolio[0].images[0] && u.portfolio[0].images[0].url))) || "",
       isNew: true,
     };
   }

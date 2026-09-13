@@ -16,7 +16,25 @@
 
   const nicheKey = f.niche && NICHE_META[f.niche] ? NICHE_META[f.niche].key : "niche.all";
   const skills = (f.skills || "").split(/[,،\n]/).map((s) => s.trim()).filter(Boolean);
-  const portfolio = Array.isArray(f.portfolio) ? f.portfolio : [];
+
+  // Normalize portfolio to [{title, link, images[]}]
+  let projects = Array.isArray(f.portfolio) ? f.portfolio : [];
+  if (projects.length && !Array.isArray(projects[0].images)) {
+    projects = [{ title: "", link: "", images: projects }];
+  }
+  const projectsHtml = projects
+    .filter((p) => Array.isArray(p.images) && p.images.length)
+    .map(
+      (p) => `
+        <div class="pf-project">
+          <div class="pf-head2">
+            <h3>${esc(p.title || "مشروع")}</h3>
+            ${p.link ? `<a class="btn btn-outline btn-sm pflink" href="${esc(p.link)}" target="_blank" rel="noopener">زيارة المشروع ↗</a>` : ""}
+          </div>
+          <div class="pf-gallery">${p.images.map((w) => `<img src="${esc(w.url)}" alt="">`).join("")}</div>
+        </div>`
+    )
+    .join("");
   const initials = (f.name || "م").split(/\s+/).filter(Boolean);
   const av = initials.length > 1 ? initials[0][0] + initials[1][0] : f.name[0];
   const rate = f.rate ? `الأجر: من ${f.rate} ج.م` : "";
@@ -46,10 +64,8 @@
     </div>
 
     <div class="pf-box">
-      <h3>أعمالي</h3>
-      <div class="pf-gallery">${
-        portfolio.length ? portfolio.map((w) => `<img src="${w.url}" alt="">`).join("") : "<span class='pf-empty'>لا توجد صور أعمال بعد.</span>"
-      }</div>
+      <h3>مشاريعي وأعمالي</h3>
+      ${ projectsHtml || "<span class='pf-empty'>لا توجد صور أعمال بعد.</span>" }
     </div>
 
     <div style="text-align:center;margin-top:20px">
