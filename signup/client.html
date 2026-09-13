@@ -37,6 +37,9 @@
         <p data-i18n="auth.clientSub">انشر مهامك وتواصل مع محترفين مصريين موثقين ينجزونها بسرعة.</p>
       </div>
 
+      <button type="button" id="googleBtn" class="btn btn-light btn-block" style="border:1px solid var(--line);margin-bottom:8px">متابعة عبر Google</button>
+      <div style="text-align:center;color:var(--muted);font-size:13px;margin:6px 0 14px">— أو أكمل بالتسجيل —</div>
+
       <div class="field">
         <label for="cName" data-i18n="auth.name">الاسم الكامل</label>
         <input class="input" id="cName" name="name" type="text" required data-i18n-ph="ph.name" />
@@ -85,6 +88,7 @@
       <p class="auth-alt"><a href="../signup/freelancer.html" data-i18n="auth.switchToF">انضم كمستقل بدلاً من ذلك</a></p>
       <p class="form-note" data-i18n="auth.noteClient">بتسجيلك، أنت توافق على استلام إشعارات عبر واتساب وبريدك الإلكتروني.</p>
     </form>
+    <script>document.getElementById("googleBtn")?.addEventListener("click", () => signInGoogle("client"));</script>
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

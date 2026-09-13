@@ -32,6 +32,12 @@ async function signIn(email, password) {
   if (!db()) return { error: { message: "Supabase غير متصل" } };
   return db().auth.signInWithPassword({ email, password });
 }
+async function signInGoogle(role) {
+  if (!db()) return { error: { message: "Supabase غير متصل" } };
+  const base = location.origin + location.pathname.replace(/[^/]*$/, "login.html");
+  const redirectTo = base + (role ? "?role=" + role : "");
+  return db().auth.signInWithOAuth({ provider: "google", options: { redirectTo } });
+}
 async function signOut() {
   if (db()) await db().auth.signOut();
 }
