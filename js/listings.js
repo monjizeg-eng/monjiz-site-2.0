@@ -81,7 +81,7 @@
     list.forEach((f) => {
       const card = document.createElement("article");
       card.className = "freelancer-card";
-      const thumb = f.thumb ? `<img src="${f.thumb}" alt="" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;border:1px solid var(--line)">` : "";
+      const thumb = f.thumb ? `<img src="${f.thumb}" alt="" style="width:100%;height:120px;object-fit:contain;object-position:center;border-radius:12px;margin-bottom:12px;border:1px solid var(--line);background:#f7f3eb;padding:6px">` : "";
       const avatarHtml = f.avatar ? `<img src="${f.avatar}" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover">` : initials(f.name);
       card.innerHTML = `
         ${thumb}
