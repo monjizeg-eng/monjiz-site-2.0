@@ -41,12 +41,12 @@
     )
     .join("");
   const initials = (f.name || "م").split(/\s+/).filter(Boolean);
-  const av = initials.length > 1 ? initials[0][0] + initials[1][0] : f.name[0];
+  const av = initials.length > 1 ? initials[0][0] + initials[1][0] : (f.name || "م")[0];
   const rate = f.rate ? `الأجر: من ${f.rate} ج.م` : "";
   const relatedHtml = related.length
     ? `<div class="pf-recommend-grid">${related.map((u) => {
         const relatedSkills = (u.skills || "").split(/[,،\n]/).map((s) => s.trim()).filter(Boolean).slice(0, 2);
-        const relatedName = escapeHtml(u.name || "مستقل");
+        const relatedName = esc(u.name || "مستقل");
         const relatedRole = u.niche && NICHE_META[u.niche] ? I18N.t(NICHE_META[u.niche].key) : "مستقل";
         return `
           <div class="pf-recommend-card">
@@ -103,8 +103,10 @@
   `;
 
   function esc(s) {
-    return String(s).replace(/[&<>"']/g, (c) => ({
+    return String(s || "").replace(/[&<>"']/g, (c) => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
     }[c]));
   }
+
+  const escapeHtml = esc;
 })();
