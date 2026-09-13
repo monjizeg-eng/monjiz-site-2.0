@@ -1,4 +1,4 @@
-/* ===== منجز — عارض قوائم المستقلين (من تسجيلات حقيقية فقط) ===== */
+/* ===== منجز — عارض قوائم المستقلين (من قاعدة بيانات Supabase) ===== */
 (function () {
   const params = new URLSearchParams(location.search);
   const nicheKey = params.get("niche");
@@ -14,13 +14,11 @@
   function buildTabs() {
     const tabs = document.getElementById("nicheTabs");
     tabs.innerHTML = "";
-    // All tab
     const all = document.createElement("a");
     all.href = "freelancers.html";
     all.textContent = `▤ ${I18N.t("list.all")}`;
     if (!niche) all.classList.add("active");
     tabs.appendChild(all);
-    // Each niche
     Object.keys(NICHE_META).forEach((key) => {
       const a = document.createElement("a");
       a.href = `freelancers.html?niche=${key}`;
@@ -30,6 +28,7 @@
     });
   }
 
+  // Turn a Supabase row into a display profile
   function profileOf(u) {
     const skills = (u.skills || "")
       .split(/[,،\n]/)
@@ -37,43 +36,36 @@
       .filter(Boolean);
     return {
       name: u.name || "؟",
-      role: u.niche ? I18N.t(NICHE_META[u.niche].key) : I18N.t("niche.all"),
+      role: u.niche && NICHE_META[u.niche] ? I18N.t(NICHE_META[u.niche].key) : I18N.t("niche.all"),
       rating: 0,
       jobs: 0,
       skills: skills.length ? skills : [I18N.t("list.new")],
       bio: u.bio || "",
       rateNum: parseFloat(u.rate) || 0,
-      phone: u.phone || "",
       isNew: true,
     };
   }
 
-  function allProfiles() {
-    const real = getRegisteredFreelancers();
-    let list = real.map(profileOf);
-    if (niche) list = list.filter((f) => (f.role === I18N.t(NICHE_META[niche].key)));
-    return list;
-  }
-
-  // --- Render ---
+  // --- Render helpers ---
   function initials(name) {
     const parts = name.split(/\s+/).filter(Boolean);
     return parts.length > 1 ? parts[0][0] + parts[1][0] : (name[0] || "م");
   }
-
-  function stars() {
-    // New members have no rating yet
-    return "☆ ☆ ☆ ☆ ☆";
-  }
-
+  function stars() { return "☆ ☆ ☆ ☆ ☆"; }
   function formatRate(n) {
     if (!n) return I18N.t("list.new");
     return I18N.current() === "ar" ? `من ${n} ج.م` : `from ${n} EGP`;
   }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+    }[c]));
+  }
 
-  function render(list) {
+  function render(list, hasAny) {
     grid.innerHTML = "";
-    const hasAny = getRegisteredFreelancers().length > 0;
+    document.getElementById("listTitle").textContent =
+      `${niche ? I18N.t(NICHE_META[niche].key) : I18N.t("list.all")} (${list.length})`;
 
     if (!list.length) {
       empty.style.display = "block";
@@ -86,8 +78,6 @@
     list.forEach((f) => {
       const card = document.createElement("article");
       card.className = "freelancer-card";
-      // All contact buttons point to the same Monjiz WhatsApp number
-      const contactHref = WHATSAPP;
       card.innerHTML = `
         <div class="profile">
           <div class="profile-avatar">${initials(f.name)}</div>
@@ -102,7 +92,7 @@
         <div class="fc-foot">
           <div class="fc-rate">${formatRate(f.rateNum)}</div>
           <div class="fc-actions">
-            <a class="btn btn-outline btn-sm" href="${contactHref}" target="_blank" rel="noopener">${I18N.t("list.contact")}</a>
+            <a class="btn btn-outline btn-sm" href="${WHATSAPP}" target="_blank" rel="noopener">${I18N.t("list.contact")}</a>
             <a class="btn btn-dark btn-sm" href="signup/client.html">${I18N.t("list.book")}</a>
           </div>
         </div>`;
@@ -110,32 +100,36 @@
     });
   }
 
-  function applyFilterAndSort() {
+  async function applyFilterAndSort() {
+    let all = await fetchFreelancers();          // real data from Supabase
+    const profiles = all.map(profileOf);
+    const hasAny = profiles.length > 0;
+
+    let list = profiles;
+    if (niche) list = list.filter((f) => f.role === I18N.t(NICHE_META[niche].key));
+
     const q = (searchInput.value || "").trim().toLowerCase();
-    let list = allProfiles().filter(
-      (f) => !q || f.name.toLowerCase().includes(q) || f.skills.some((s) => s.toLowerCase().includes(q))
-    );
+    if (q) {
+      list = list.filter(
+        (f) => f.name.toLowerCase().includes(q) || f.skills.some((s) => s.toLowerCase().includes(q))
+      );
+    }
+
     const sort = sortSelect.value;
     if (sort === "rate-low") list.sort((a, b) => a.rateNum - b.rateNum);
     else if (sort === "rate-high") list.sort((a, b) => b.rateNum - a.rateNum);
     else if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name));
-    render(list);
 
-    const title = niche ? I18N.t(NICHE_META[niche].key) : I18N.t("list.all");
-    document.getElementById("listTitle").textContent = `${title} (${list.length})`;
-    document.getElementById("heroTitle").textContent = niche ? I18N.t(NICHE_META[niche].key) : I18N.t("list.all");
+    render(list, hasAny);
+
+    document.getElementById("heroTitle").textContent =
+      niche ? I18N.t(NICHE_META[niche].key) : I18N.t("list.all");
     document.getElementById("heroSub").textContent = I18N.t("list.heroSub");
-    document.title = `${I18N.t(NICHE_META[niche] ? NICHE_META[niche].key : "list.all")} | Monjiz`;
-  }
-
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, (c) => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
-    }[c]));
+    document.title = `${I18N.t(niche ? NICHE_META[niche].key : "list.all")} | Monjiz`;
   }
 
   // Static localized labels
-  const staticLabels = () => {
+  function staticLabels() {
     document.getElementById("listEyebrow").textContent = I18N.t("list.eyebrow");
     document.getElementById("emptyTitle").textContent = I18N.t("list.emptyTitle");
     document.getElementById("emptyText").textContent = I18N.t("list.emptyText");
@@ -148,22 +142,16 @@
     sortSelect.options[1].textContent = I18N.t("list.sortRateLow");
     sortSelect.options[2].textContent = I18N.t("list.sortRateHigh");
     sortSelect.options[3].textContent = I18N.t("list.sortName");
-    document.querySelectorAll(".footer").forEach((f) => {
-      f.querySelectorAll("[data-i18n]").forEach((el) => {
-        el.innerHTML = I18N.t(el.getAttribute("data-i18n"));
-      });
+    document.querySelectorAll(".footer [data-i18n]").forEach((el) => {
+      el.innerHTML = I18N.t(el.getAttribute("data-i18n"));
     });
-  };
-
-  searchInput.addEventListener("input", applyFilterAndSort);
-  sortSelect.addEventListener("change", applyFilterAndSort);
-
-  function refresh() {
-    buildTabs();
-    staticLabels();
-    applyFilterAndSort();
   }
 
-  document.addEventListener("monjiz:lang", refresh);
-  refresh();
+  searchInput.addEventListener("input", () => applyFilterAndSort());
+  sortSelect.addEventListener("change", () => applyFilterAndSort());
+  document.addEventListener("monjiz:lang", () => { buildTabs(); staticLabels(); applyFilterAndSort(); });
+
+  buildTabs();
+  staticLabels();
+  applyFilterAndSort();
 })();

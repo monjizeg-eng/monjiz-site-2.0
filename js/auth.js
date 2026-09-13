@@ -1,20 +1,5 @@
-/* ===== منجز — معالجة نماذج التسجيل (مخزّن محلياً، مستقلون يظهرون فوراً) ===== */
+/* ===== منجز — معالجة نماذج التسجيل (تُحفظ في Supabase) ===== */
 (function () {
-  const STORAGE_KEY = "monjiz_users";
-
-  function saveUser(record) {
-    try {
-      const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      if (!Array.isArray(existing)) throw new Error("bad");
-      record.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-      record.at = new Date().toISOString();
-      existing.push(record);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-    } catch (_) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([record]));
-    }
-  }
-
   document.querySelectorAll("form.auth-card").forEach((form) => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -30,32 +15,32 @@
 
       const isFreelancer = form.id === "freelancerForm";
 
-      if (isFreelancer) {
-        // Normalize so the (real) listing can render the new member correctly
-        saveUser({
-          type: "freelancer",
-          name: data.name,
-          phone: data.phone,
-          email: data.email,
-          niche: data.niche, // design | web | marketing | business
-          skills: data.skills,
-          rate: data.rate,
-          experience: data.experience,
-          bio: data.bio,
-        });
-      } else {
-        saveUser({
-          type: "client",
-          name: data.name,
-          company: data.company,
-          phone: data.phone,
-          email: data.email,
-          interest: data.interest,
-        });
-      }
-
-      showSuccess(isFreelancer, data);
-      form.reset();
+      const submit = async () => {
+        if (isFreelancer) {
+          await saveFreelancer({
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            niche: data.niche, // design | web | marketing | business
+            skills: data.skills,
+            rate: data.rate,
+            experience: data.experience,
+            bio: data.bio,
+            approved: true,
+          });
+        } else {
+          await saveClient({
+            name: data.name,
+            company: data.company,
+            phone: data.phone,
+            email: data.email,
+            interest: data.interest,
+          });
+        }
+        showSuccess(isFreelancer, data);
+        form.reset();
+      };
+      submit();
     });
   });
 
