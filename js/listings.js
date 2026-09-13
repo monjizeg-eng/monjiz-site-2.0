@@ -35,6 +35,7 @@
       .map((s) => s.trim())
       .filter(Boolean);
     return {
+      id: u.id,
       name: u.name || "؟",
       role: u.niche && NICHE_META[u.niche] ? I18N.t(NICHE_META[u.niche].key) : I18N.t("niche.all"),
       rating: 0,
@@ -42,6 +43,8 @@
       skills: skills.length ? skills : [I18N.t("list.new")],
       bio: u.bio || "",
       rateNum: parseFloat(u.rate) || 0,
+      avatar: u.avatar_url || "",
+      thumb: (Array.isArray(u.portfolio) && u.portfolio[0] && u.portfolio[0].url) || "",
       isNew: true,
     };
   }
@@ -78,9 +81,12 @@
     list.forEach((f) => {
       const card = document.createElement("article");
       card.className = "freelancer-card";
+      const thumb = f.thumb ? `<img src="${f.thumb}" alt="" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;border:1px solid var(--line)">` : "";
+      const avatarHtml = f.avatar ? `<img src="${f.avatar}" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover">` : initials(f.name);
       card.innerHTML = `
+        ${thumb}
         <div class="profile">
-          <div class="profile-avatar">${initials(f.name)}</div>
+          <div class="profile-avatar">${avatarHtml}</div>
           <div>
             <div class="profile-name">${esc(f.name)}</div>
             <div class="profile-role">${f.role}</div>
@@ -92,8 +98,8 @@
         <div class="fc-foot">
           <div class="fc-rate">${formatRate(f.rateNum)}</div>
           <div class="fc-actions">
-            <a class="btn btn-outline btn-sm" href="${WHATSAPP}" target="_blank" rel="noopener">${I18N.t("list.contact")}</a>
-            <a class="btn btn-dark btn-sm" href="signup/client.html">${I18N.t("list.book")}</a>
+            <a class="btn btn-outline btn-sm" href="profile.html?id=${f.id}">${I18N.t("list.view")}</a>
+            <a class="btn btn-dark btn-sm" href="${WHATSAPP}" target="_blank" rel="noopener">${I18N.t("list.contact")}</a>
           </div>
         </div>`;
       grid.appendChild(card);

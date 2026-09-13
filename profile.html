@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ملف المستقل | منجز Monjiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .pf-wrap { max-width: 780px; margin: 0 auto; }
+    .pf-head { background:linear-gradient(160deg,#000,#171717); color:#fff; border-radius:22px; padding:32px; box-shadow:var(--shadow); margin-bottom:24px; }
+    .pf-head .row { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+    .pf-avatar { width:84px; height:84px; border-radius:50%; background:var(--beige); color:var(--ink); display:grid; place-items:center; font-size:34px; font-weight:900; border:2px solid rgba(255,255,255,.3); }
+    .pf-name { font-size:28px; font-weight:900; }
+    .pf-role { color:var(--brown-soft); font-weight:700; }
+    .pf-rate { margin-top:6px; color:rgba(255,255,255,.8); font-size:15px; }
+    .pf-box { background:#fff; border:1px solid var(--line); border-radius:18px; padding:26px; box-shadow:var(--shadow); margin-bottom:18px; }
+    .pf-box h3 { font-size:18px; font-weight:900; margin-bottom:12px; }
+    .pf-bio { color:var(--muted); font-size:15px; }
+    .pf-skills { display:flex; flex-wrap:wrap; gap:8px; }
+    .pf-skill { background:var(--beige); border:1px solid #dccfb2; color:var(--brown); padding:5px 14px; border-radius:999px; font-size:13.5px; font-weight:700; }
+    .pf-gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; }
+    .pf-gallery img { width:100%; height:150px; object-fit:cover; border-radius:12px; border:1px solid var(--line); }
+    .pf-empty { color:var(--muted); font-size:14px; }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">م</span>
+        <span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+        <a href="freelancers.html" data-i18n="nav.freelancers">المستقلون</a>
+        <a href="dashboard.html" class="only-user" data-i18n="nav.account" style="display:none">حسابي</a>
+        <div class="lang-switch" aria-label="Language"></div>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="pf-wrap" id="profileWrap">جارِ تحميل الملف…</div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/session-nav.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

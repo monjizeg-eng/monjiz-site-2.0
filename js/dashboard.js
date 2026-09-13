@@ -11,13 +11,11 @@
   const noProfile = document.getElementById("noProfile");
   const roleNote = document.getElementById("roleNote");
 
-  // Admin shortcut
-  if (await isAdmin(uid)) {
-    const link = document.getElementById("adminLink");
-    link.style.display = "inline-block";
-    link.href = "admin.html";
-    roleNote.textContent = "أنت مشرف — يمكنك إدارة الحسابات من لوحة المشرف.";
-  }
+  // Admin shortcut (always shown; admin.html gates access)
+  const link = document.getElementById("adminLink");
+  link.style.display = "inline-block";
+  link.href = "admin.html";
+  if (await isAdmin(uid)) roleNote.textContent = "أنت مشرف — يمكنك إدارة الحسابات من لوحة المشرف.";
 
   const freelancer = await getFreelancerByAuth(uid);
   const client = await getClientByAuth(uid);
@@ -65,6 +63,7 @@
     document.getElementById("frBio").value = freelancer.bio || "";
     if (freelancer.avatar_url)
       document.getElementById("avatarImg").src = freelancer.avatar_url;
+    document.getElementById("viewMyProfile").href = "profile.html?id=" + (freelancer.id || "");
     renderWorks();
 
     // avatar upload

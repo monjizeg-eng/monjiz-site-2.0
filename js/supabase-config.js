@@ -57,6 +57,11 @@ async function isAdmin(uid) {
   const { data } = await db().from("admins").select("id").eq("id", uid).maybeSingle();
   return !!data;
 }
+async function getFreelancerById(id) {
+  if (!db() || !id) return null;
+  const { data } = await db().from("freelancers").select("*").eq("id", id).maybeSingle();
+  return data || null;
+}
 async function getFreelancerByAuth(uid) {
   if (!db() || !uid) return null;
   const { data } = await db().from("freelancers").select("*").eq("auth_id", uid).maybeSingle();

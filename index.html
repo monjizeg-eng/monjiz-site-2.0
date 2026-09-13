@@ -25,12 +25,13 @@
         <a href="#how" data-i18n="nav.how">كيف يعمل</a>
         <a href="#why" data-i18n="nav.why">لماذا منجز</a>
         <a href="#about" data-i18n="nav.about">من نحن</a>
-        <a href="login.html" data-i18n="nav.account">حسابي</a>
+        <a href="dashboard.html" class="only-user" data-i18n="nav.account" style="display:none">حسابي</a>
         <div class="lang-switch" aria-label="Language"></div>
       </nav>
-      <a href="login.html" class="btn btn-outline btn-nav" data-i18n="nav.login">دخول</a>
-      <a href="signup/client.html" class="btn btn-light btn-nav" data-i18n="nav.client">للعملاء</a>
-      <a href="signup/freelancer.html" class="btn btn-dark btn-nav" data-i18n="nav.join">انضم كمستقل</a>
+      <a href="login.html" class="btn btn-outline btn-nav only-guest" data-i18n="nav.login">دخول</a>
+      <a href="signup/client.html" class="btn btn-light btn-nav only-guest" data-i18n="nav.client">للعملاء</a>
+      <a href="signup/freelancer.html" class="btn btn-dark btn-nav only-guest" data-i18n="nav.join">انضم كمستقل</a>
+      <a href="dashboard.html" class="btn btn-dark btn-nav only-user" data-i18n="nav.account" style="display:none">حسابي</a>
       <button class="nav-toggle" id="navToggle" aria-label="القائمة">
         <span></span><span></span><span></span>
       </button>
@@ -290,5 +291,6 @@
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/session-nav.js"></script>
 </body>
 </html>
