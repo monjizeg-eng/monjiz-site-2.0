@@ -21,10 +21,10 @@ const I18N = (function () {
       "hero.sub": "محترفون مصريون موثقون ينجزون لك مهامك بجودة عالية وسرعة فائقة — من التصميم والتطوير إلى التسويق ودعم الأعمال.",
       "hero.ctaClient": "انشر مهمة — للعملاء",
       "hero.ctaJoin": "انضم كمستقل",
-      "hero.s1n": "+٣٠٠", "hero.s1l": "محترف موثق",
-      "hero.s2n": "+١٠٠٠", "hero.s2l": "مهمة منجزة",
+      "hero.s1n": "+٢٠", "hero.s1l": "محترف موثق",
+      "hero.s2n": "+٥٠", "hero.s2l": "مهمة منجزة",
       "hero.s3n": "٤ نجوم", "hero.s3l": "متوسط التقييم",
-      "hero.s4n": "٥ دقائق", "hero.s4l": "متوسط الرد",
+      "hero.s4n": "١٥ دقيقة", "hero.s4l": "متوسط الرد",
 
       // Services
       "services.eyebrow": "خدماتنا",
@@ -220,10 +220,10 @@ const I18N = (function () {
       "hero.sub": "Verified Egyptian professionals get your work done with high quality and speed — from design and development to marketing and business support.",
       "hero.ctaClient": "Post a task — for clients",
       "hero.ctaJoin": "Join as freelancer",
-      "hero.s1n": "+300", "hero.s1l": "Verified talent",
-      "hero.s2n": "+1000", "hero.s2l": "Tasks done",
+      "hero.s1n": "+20", "hero.s1l": "Verified talent",
+      "hero.s2n": "+50", "hero.s2l": "Tasks done",
       "hero.s3n": "4★", "hero.s3l": "Average rating",
-      "hero.s4n": "5 min", "hero.s4l": "Average reply",
+      "hero.s4n": "15 min", "hero.s4l": "Average reply",
 
       "services.eyebrow": "Our Services",
       "services.title": "Our main categories",

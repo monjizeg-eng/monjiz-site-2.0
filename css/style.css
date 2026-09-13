@@ -148,7 +148,7 @@ em { font-style: normal; }
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marqueeRight 26s linear infinite;
+  animation: marqueeRight 12s linear infinite;
 }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee-content {
