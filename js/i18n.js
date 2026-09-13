@@ -79,6 +79,7 @@ const I18N = (function () {
       "how.s3d": "استلم عملك بجودة عالية وادفع بأمان عبر إنستا باي أو فودافون كاش.",
       "how.free": "عندك مهمة بسيطة؟ مش لازم تختار خدمة كاملة!",
       "how.freeCta": "انشر مهمة — إنها مجانية!",
+      "nums.1": "١", "nums.2": "٢", "nums.3": "٣",
 
       // Why
       "why.eyebrow": "لماذا منجز",
@@ -274,6 +275,7 @@ const I18N = (function () {
       "how.s3d": "Receive your work in high quality and pay securely via InstaPay or Vodafone Cash.",
       "how.free": "Have a simple task? You don't need to pick a full service!",
       "how.freeCta": "Post a task — it's free!",
+      "nums.1": "1", "nums.2": "2", "nums.3": "3",
 
       "why.eyebrow": "Why Monjiz",
       "why.title": "Why choose Monjiz?",

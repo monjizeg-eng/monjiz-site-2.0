@@ -52,7 +52,7 @@ em { font-style: normal; }
 .btn-dark { background: var(--ink); color: #fff; box-shadow: 0 10px 22px rgba(10,10,10,.28); }
 .btn-dark:hover { background: #000; }
 .btn-light { background: #fff; color: var(--ink); border-color: var(--line); }
-.btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-ghost { background: rgba(10,10,10,.45); color: #fff; border-color: rgba(255,255,255,.7); }
 .btn-ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); }
 .btn-outline { background: transparent; color: var(--ink); border-color: var(--gray); }
 .btn-whatsapp { background: #25d366; color: #0a0a0a; }
@@ -80,10 +80,11 @@ em { font-style: normal; }
 .brand { display: flex; align-items: center; gap: 10px; }
 .brand-mark {
   width: 40px; height: 40px;
-  display: grid; place-items: center;
-  background: var(--ink);
-  color: #fff; font-weight: 900; font-size: 22px;
+  display: inline-block;
+  background: url('../img/logo.png') center / cover no-repeat;
+  color: transparent; font-size: 0;
   border-radius: 12px;
+  border: 1px solid var(--line);
 }
 .brand-text { font-weight: 800; font-size: 20px; color: var(--ink); }
 .brand-text em { color: var(--ink); font-weight: 700; font-size: 15px; opacity: .55; }
@@ -101,16 +102,12 @@ em { font-style: normal; }
   color: #fff;
   padding: 110px 0 90px;
   background:
-    radial-gradient(1000px 450px at 85% -10%, rgba(255,255,255,.12), transparent 60%),
-    linear-gradient(160deg, #000, #171717);
+    linear-gradient(rgba(10,10,10,.30), rgba(10,10,10,.55)),
+    url('../img/hero-bg.avif') center / cover no-repeat;
   overflow: hidden;
+  background-attachment: scroll;
 }
-.hero-bg {
-  position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: linear-gradient(180deg, rgba(0,0,0,.6), transparent);
-}
+.hero-bg { display: none; }
 .hero-inner { position: relative; max-width: 780px; }
 .hero-tag {
   display: inline-block;
