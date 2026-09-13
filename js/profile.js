@@ -17,6 +17,11 @@
   const nicheKey = f.niche && NICHE_META[f.niche] ? NICHE_META[f.niche].key : "niche.all";
   const skills = (f.skills || "").split(/[,،\n]/).map((s) => s.trim()).filter(Boolean);
 
+  const allFreelancers = await fetchFreelancers();
+  const related = (allFreelancers || [])
+    .filter((u) => u.id !== id && (u.niche === f.niche || !f.niche || !u.niche))
+    .slice(0, 3);
+
   // Normalize portfolio to [{title, link, images[]}]
   let projects = Array.isArray(f.portfolio) ? f.portfolio : [];
   if (projects.length && !Array.isArray(projects[0].images)) {
@@ -38,6 +43,25 @@
   const initials = (f.name || "م").split(/\s+/).filter(Boolean);
   const av = initials.length > 1 ? initials[0][0] + initials[1][0] : f.name[0];
   const rate = f.rate ? `الأجر: من ${f.rate} ج.م` : "";
+  const relatedHtml = related.length
+    ? `<div class="pf-recommend-grid">${related.map((u) => {
+        const relatedSkills = (u.skills || "").split(/[,،\n]/).map((s) => s.trim()).filter(Boolean).slice(0, 2);
+        const relatedName = escapeHtml(u.name || "مستقل");
+        const relatedRole = u.niche && NICHE_META[u.niche] ? I18N.t(NICHE_META[u.niche].key) : "مستقل";
+        return `
+          <div class="pf-recommend-card">
+            <div class="pf-recommend-top">
+              <div class="pf-recommend-avatar"><img src="${u.avatar_url || ''}" alt="${relatedName}" /></div>
+              <div>
+                <h4>${relatedName}</h4>
+                <p>${relatedRole}</p>
+              </div>
+            </div>
+            <div class="pf-skills">${relatedSkills.length ? relatedSkills.map((s) => `<span class="pf-skill">${esc(s)}</span>`).join("") : "<span class='pf-empty'>مهارات متنوعة</span>"}</div>
+            <div style="margin-top:12px"><a class="btn btn-outline btn-sm" href="profile.html?id=${u.id}">عرض الملف</a></div>
+          </div>`;
+      }).join("")}</div>`
+    : "<span class='pf-empty'>لا توجد توصيات حالياً.</span>";
 
   wrap.innerHTML = `
     <div class="pf-head">
@@ -66,6 +90,11 @@
     <div class="pf-box">
       <h3>مشاريعي وأعمالي</h3>
       ${ projectsHtml || "<span class='pf-empty'>لا توجد صور أعمال بعد.</span>" }
+    </div>
+
+    <div class="pf-box pf-recommend">
+      <h3>مستقلون موصى بهم</h3>
+      ${relatedHtml}
     </div>
 
     <div style="text-align:center;margin-top:20px">
