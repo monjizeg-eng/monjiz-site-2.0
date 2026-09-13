@@ -6,7 +6,7 @@ An Egyptian freelancing marketplace: verified professionals getting clients' wor
 
 ## Pages
 - `index.html` — landing page
-- `freelancers.html` — browse freelancers per niche (`?niche=design|web|marketing|business`)
+- `freelancers.html` — browse freelancers per niche (`?niche=design|web|marketing|business|ai`)
 - `signup/freelancer.html` — freelancer sign-up
 - `signup/client.html` — client sign-up
 

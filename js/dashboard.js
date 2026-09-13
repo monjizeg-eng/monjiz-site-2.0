@@ -20,6 +20,10 @@
     el.style.color = ok ? "#1a7f37" : "#b00020";
   };
 
+  function translated(textKey, fallback) {
+    return I18N.t(textKey) || fallback;
+  }
+
   /* ---------- Projects (portfolio groups) ---------- */
   let projects = [];
 
@@ -42,15 +46,15 @@
       card.className = "project-card";
       card.innerHTML = `
         <div class="row2">
-          <div class="field"><label>اسم المشروع</label><input class="input p-title" value="${escAttr(p.title)}" placeholder="مثال: هوية لبراند كوفي"></div>
-          <div class="field"><label>رابط المشروع (اختياري)</label><input class="input p-link" value="${escAttr(p.link)}" placeholder="https://example.com"></div>
+          <div class="field"><label>${translated("dashboard.projectName", "اسم المشروع")}</label><input class="input p-title" value="${escAttr(p.title)}" placeholder="${translated("dashboard.projectPlaceholder", "مثال: هوية لبراند كوفي")}"></div>
+          <div class="field"><label>${translated("dashboard.projectLink", "رابط المشروع (اختياري)")}</label><input class="input p-link" value="${escAttr(p.link)}" placeholder="${translated("dashboard.projectLinkPlaceholder", "https://example.com")}"></div>
         </div>
         <div class="portfolio-grid">${p.images
-          .map((w, k) => `<div class="work-tile" data-k="${k}"><img src="${w.url}" alt=""><button class="del" data-k="${k}">حذف</button></div>`)
+          .map((w, k) => `<div class="work-tile" data-k="${k}"><img src="${w.url}" alt=""><button class="del" data-k="${k}">${translated("dashboard.deleteImage", "حذف")}</button></div>`)
           .join("")}</div>
         <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
-          <label class="btn btn-outline btn-sm" style="cursor:pointer;margin:0">أضف صورًا<input type="file" class="p-files" accept="image/*" multiple hidden></label>
-          <button class="btn btn-danger btn-sm p-del">حذف المشروع</button>
+          <label class="btn btn-outline btn-sm" style="cursor:pointer;margin:0">${translated("dashboard.addPhotos", "أضف صورًا")}<input type="file" class="p-files" accept="image/*" multiple hidden></label>
+          <button class="btn btn-danger btn-sm p-del">${translated("dashboard.deleteProject", "حذف المشروع")}</button>
         </div>`;
       wrap.appendChild(card);
 
@@ -112,7 +116,7 @@
 
   if (freelancer) {
     fPanel.style.display = "block";
-    roleNote.textContent = "أنت مسجّل كمستقل.";
+    roleNote.textContent = I18N.t("dashboard.roleFreelancer");
     document.getElementById("frName").value = freelancer.name || "";
     document.getElementById("frPhone").value = freelancer.phone || "";
     document.getElementById("frEmail").value = freelancer.email || "";
@@ -148,15 +152,27 @@
         portfolio,
       };
       const { error } = await updateFreelancer(uid, patch);
-      if (error) setMsg("frMsg", "خطأ في الحفظ: " + error.message, false);
-      else setMsg("frMsg", "تم حفظ ملفك بنجاح ✅", true);
+      if (error) setMsg("frMsg", I18N.t("dashboard.saveError") + ": " + error.message, false);
+      else setMsg("frMsg", I18N.t("dashboard.saveSuccess"), true);
+    });
+
+    document.getElementById("deleteFreelancer").addEventListener("click", async () => {
+      const confirmed = confirm("هل أنت متأكد أنك تريد حذف ملفك؟ هذا سيزيل الملف العام من الموقع.");
+      if (!confirmed) return;
+      const { error } = await deleteFreelancerProfile(uid);
+      if (error) {
+        setMsg("frMsg", "تعذّر حذف الملف: " + error.message, false);
+        return;
+      }
+      await signOut();
+      location.href = "index.html";
     });
   }
 
   /* ---------- Client ---------- */
   if (client) {
     cPanel.style.display = "block";
-    roleNote.textContent = "أنت مسجّل كعميل.";
+    roleNote.textContent = I18N.t("dashboard.roleClient");
     document.getElementById("clName").value = client.name || "";
     document.getElementById("clCompany").value = client.company || "";
     document.getElementById("clPhone").value = client.phone || "";
@@ -171,8 +187,20 @@
         interest: document.getElementById("clInterest").value,
       };
       const { error } = await updateClient(uid, patch);
-      if (error) setMsg("clMsg", "خطأ في الحفظ: " + error.message, false);
-      else setMsg("clMsg", "تم حفظ ملفك بنجاح ✅", true);
+      if (error) setMsg("clMsg", I18N.t("dashboard.saveError") + ": " + error.message, false);
+      else setMsg("clMsg", I18N.t("dashboard.saveSuccess"), true);
+    });
+
+    document.getElementById("deleteClient").addEventListener("click", async () => {
+      const confirmed = confirm("هل أنت متأكد أنك تريد حذف ملفك؟ هذا سيزيل الملف العام من الموقع.");
+      if (!confirmed) return;
+      const { error } = await deleteClientProfile(uid);
+      if (error) {
+        setMsg("clMsg", "تعذّر حذف الملف: " + error.message, false);
+        return;
+      }
+      await signOut();
+      location.href = "index.html";
     });
   }
 

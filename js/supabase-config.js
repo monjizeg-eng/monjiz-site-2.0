@@ -74,6 +74,14 @@ async function updateClient(uid, patch) {
   if (!db()) return { error: { message: "no db" } };
   return db().from("clients").update(patch).eq("auth_id", uid);
 }
+async function deleteFreelancerProfile(uid) {
+  if (!db() || !uid) return { error: { message: "no db" } };
+  return db().from("freelancers").delete().eq("auth_id", uid);
+}
+async function deleteClientProfile(uid) {
+  if (!db() || !uid) return { error: { message: "no db" } };
+  return db().from("clients").delete().eq("auth_id", uid);
+}
 
 /* ================= PORTFOLIO / WORK PHOTOS ================= */
 async function uploadWork(uid, file) {

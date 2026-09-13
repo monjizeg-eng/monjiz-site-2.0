@@ -44,18 +44,18 @@
   <section class="section">
     <div class="dash-wrap">
       <div class="dash-top">
-        <h1 style="font-size:30px;font-weight:900">حسابي</h1>
-        <button id="logoutBtn" class="btn btn-ghost btn-sm">تسجيل الخروج</button>
+        <h1 style="font-size:30px;font-weight:900" data-i18n="dashboard.title">حسابي</h1>
+        <button id="logoutBtn" class="btn btn-ghost btn-sm" data-i18n="dashboard.logout">تسجيل الخروج</button>
       </div>
       <p id="roleNote" style="color:var(--muted);margin-bottom:20px"></p>
 
       <!-- ===== Freelancer panel ===== -->
       <div class="dash-card" id="freelancerPanel" style="display:none">
-        <h2>ملف المستقل</h2>
-        <p class="sub">عدّل بياناتك وأضف صور أعمالك.</p>
+        <h2 data-i18n="dashboard.freelancerTitle">ملف المستقل</h2>
+        <p class="sub" data-i18n="dashboard.freelancerSubtitle">عدّل بياناتك وأضف صور أعمالك.</p>
 
         <div class="field">
-          <label>الصورة الشخصية</label>
+          <label data-i18n="dashboard.personalPhoto">الصورة الشخصية</label>
           <div style="display:flex;align-items:center;gap:14px">
             <img class="avatar-preview" id="avatarImg" alt="" />
             <input class="input" id="frAvatarFile" type="file" accept="image/*" style="border:none" />
@@ -63,74 +63,78 @@
         </div>
 
         <div class="row2">
-          <div class="field"><label>الاسم الكامل</label><input class="input" id="frName" /></div>
-          <div class="field"><label>رقم الواتساب</label><input class="input" id="frPhone" /></div>
+          <div class="field"><label data-i18n="dashboard.fullName">الاسم الكامل</label><input class="input" id="frName" /></div>
+          <div class="field"><label data-i18n="dashboard.whatsapp">رقم الواتساب</label><input class="input" id="frPhone" /></div>
         </div>
 
-        <div class="field"><label>البريد الإلكتروني (للقراءة فقط)</label><input class="input" id="frEmail" disabled /></div>
+        <div class="field"><label data-i18n="dashboard.emailReadOnly">البريد الإلكتروني (للقراءة فقط)</label><input class="input" id="frEmail" disabled /></div>
 
         <div class="row2">
           <div class="field">
-            <label>التخصص</label>
+            <label data-i18n="dashboard.specialty">التخصص</label>
             <select class="input" id="frNiche">
               <option value="design">تصميم ومحتوى بصري</option>
               <option value="web">تطوير مواقع</option>
               <option value="marketing">تسويق رقمي</option>
               <option value="business">دعم أعمال</option>
+              <option value="ai">أتمتة الذكاء الاصطناعي</option>
             </select>
           </div>
-          <div class="field"><label>الأجر التقريبي (ج.م)</label><input class="input" id="frRate" type="number" /></div>
+          <div class="field"><label data-i18n="dashboard.approxRate">الأجر التقريبي (ج.م)</label><input class="input" id="frRate" type="number" /></div>
         </div>
 
-        <div class="field"><label>المهارات (افصل بفاصلة)</label><input class="input" id="frSkills" /></div>
-        <div class="field"><label>سنوات الخبرة</label>
+        <div class="field"><label data-i18n="dashboard.skills">المهارات (افصل بفاصلة)</label><input class="input" id="frSkills" /></div>
+        <div class="field"><label data-i18n="dashboard.experience">سنوات الخبرة</label>
           <select class="input" id="frExp">
             <option>أقل من سنة</option><option>١ - ٣ سنوات</option><option>٣ - ٥ سنوات</option><option>أكثر من ٥ سنوات</option>
           </select>
         </div>
-        <div class="field"><label>نبذة قصيرة</label><textarea class="input" id="frBio" rows="3"></textarea></div>
+        <div class="field"><label data-i18n="dashboard.shortBio">نبذة قصيرة</label><textarea class="input" id="frBio" rows="3"></textarea></div>
 
         <div class="field">
-          <label>مشاريعك وأعمالك</label>
+          <label data-i18n="dashboard.projects">مشاريعك وأعمالك</label>
           <div id="projectsWrap"></div>
-          <button type="button" id="addProject" class="btn btn-outline btn-sm" style="margin-top:6px">+ إضافة مشروع</button>
-          <p class="file-hint">كل مشروع: أضف اسمًا ورابطًا (اختياري) وارفع صوره — الصور تظهر كبيرة وبشكل مجموعات.</p>
+          <button type="button" id="addProject" class="btn btn-outline btn-sm" style="margin-top:6px" data-i18n="dashboard.addProject">+ إضافة مشروع</button>
+          <p class="file-hint" data-i18n="dashboard.fileHint">كل مشروع: أضف اسمًا ورابطًا (اختياري) وارفع صوره — الصور تظهر كبيرة وبشكل مجموعات.</p>
         </div>
 
-        <button id="saveFreelancer" class="btn btn-dark btn-block">حفظ التغييرات</button>
+        <button id="saveFreelancer" class="btn btn-dark btn-block" data-i18n="dashboard.saveChanges">حفظ التغييرات</button>
+        <button id="deleteFreelancer" class="btn btn-ghost btn-block" style="margin-top:12px;border-color:#b00020;color:#b00020">حذف الملف</button>
         <p id="frMsg" style="margin-top:12px;font-size:14px"></p>
-        <a id="viewMyProfile" href="#" class="btn btn-outline btn-block" style="margin-top:12px">عرض ملفك العام</a>
+        <a id="viewMyProfile" href="#" class="btn btn-outline btn-block" style="margin-top:12px" data-i18n="dashboard.viewProfile">عرض ملفك العام</a>
       </div>
 
       <!-- ===== Client panel ===== -->
       <div class="dash-card" id="clientPanel" style="display:none">
-        <h2>ملف العميل</h2>
-        <p class="sub">عدّل بيانات شركتك.</p>
+        <h2 data-i18n="dashboard.clientTitle">ملف العميل</h2>
+        <p class="sub" data-i18n="dashboard.clientSubtitle">عدّل بيانات شركتك.</p>
         <div class="row2">
-          <div class="field"><label>الاسم</label><input class="input" id="clName" /></div>
-          <div class="field"><label>الشركة / النشاط</label><input class="input" id="clCompany" /></div>
+          <div class="field"><label data-i18n="dashboard.fullName">الاسم</label><input class="input" id="clName" /></div>
+          <div class="field"><label data-i18n="dashboard.company">الشركة / النشاط</label><input class="input" id="clCompany" /></div>
         </div>
         <div class="row2">
-          <div class="field"><label>الهاتف (واتساب)</label><input class="input" id="clPhone" /></div>
-          <div class="field"><label>البريد الإلكتروني (للقراءة فقط)</label><input class="input" id="clEmail" disabled /></div>
+          <div class="field"><label data-i18n="dashboard.whatsapp">الهاتف (واتساب)</label><input class="input" id="clPhone" /></div>
+          <div class="field"><label data-i18n="dashboard.emailReadOnly">البريد الإلكتروني (للقراءة فقط)</label><input class="input" id="clEmail" disabled /></div>
         </div>
-        <div class="field"><label>نوع المهام المفضلة</label>
+        <div class="field"><label data-i18n="dashboard.taskPreference">نوع المهام المفضلة</label>
           <select class="input" id="clInterest">
             <option value="design">تصميم ومحتوى بصري</option>
             <option value="web">تطوير مواقع</option>
             <option value="marketing">تسويق رقمي</option>
             <option value="business">دعم أعمال</option>
+            <option value="ai">أتمتة الذكاء الاصطناعي</option>
             <option value="other">أخرى</option>
           </select>
         </div>
-        <button id="saveClient" class="btn btn-dark btn-block">حفظ التغييرات</button>
+        <button id="saveClient" class="btn btn-dark btn-block" data-i18n="dashboard.saveChanges">حفظ التغييرات</button>
+        <button id="deleteClient" class="btn btn-ghost btn-block" style="margin-top:12px;border-color:#b00020;color:#b00020">حذف الملف</button>
         <p id="clMsg" style="margin-top:12px;font-size:14px"></p>
       </div>
 
       <div class="dash-card" id="noProfile" style="display:none">
-        <h2>لا يوجد ملف بعد</h2>
-        <p class="sub">يبدو أن حسابك ليس لديه ملف. تواصل معنا عبر واتساب لربط حسابك.</p>
-        <a class="btn btn-dark" href="https://wa.me/201556554537" target="_blank" rel="noopener">تواصل عبر واتساب</a>
+        <h2 data-i18n="dashboard.noProfileTitle">لا يوجد ملف بعد</h2>
+        <p class="sub" data-i18n="dashboard.noProfileText">يبدو أن حسابك ليس لديه ملف. تواصل معنا عبر واتساب لربط حسابك.</p>
+        <a class="btn btn-dark" href="https://wa.me/201556554537" target="_blank" rel="noopener" data-i18n="dashboard.contactViaWhatsapp">تواصل عبر واتساب</a>
       </div>
 
     </div>

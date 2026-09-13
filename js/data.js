@@ -7,6 +7,7 @@ const NICHE_META = {
   web:       { icon: "▣", key: "niche.web" },
   marketing: { icon: "▲", key: "niche.marketing" },
   business:  { icon: "◈", key: "niche.business" },
+  ai:        { icon: "⚡", key: "niche.ai" },
 };
 
 const WHATSAPP = "https://wa.me/201556554537";

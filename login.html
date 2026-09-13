@@ -33,25 +33,25 @@
         <span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span>
       </a>
       <div class="auth-head">
-        <h1>تسجيل الدخول</h1>
-        <p>ادخل لحسابك لتعديل ملفك أو إدارة مستقلّيك.</p>
+        <h1 data-i18n="auth.loginTitle">تسجيل الدخول</h1>
+        <p data-i18n="auth.loginSubtitle">ادخل لحسابك لتعديل ملفك أو إدارة مستقلّيك.</p>
       </div>
 
       <div class="field">
-        <label for="lnEmail">البريد الإلكتروني</label>
-        <input class="input" id="lnEmail" type="email" placeholder="you@example.com" />
+        <label for="lnEmail" data-i18n="auth.loginEmail">البريد الإلكتروني</label>
+        <input class="input" id="lnEmail" type="email" data-i18n-ph="ph.email" placeholder="you@example.com" />
       </div>
       <div class="field">
-        <label for="lnPass">كلمة المرور</label>
-        <input class="input" id="lnPass" type="password" placeholder="••••••••" />
+        <label for="lnPass" data-i18n="auth.loginPassword">كلمة المرور</label>
+        <input class="input" id="lnPass" type="password" data-i18n-ph="ph.password" placeholder="••••••••" />
       </div>
 
       <div id="loginMsg" style="font-size:14px;margin-bottom:12px"></div>
 
-      <button type="submit" class="btn btn-dark btn-block">دخول</button>
+      <button type="submit" class="btn btn-dark btn-block" data-i18n="auth.loginSubmit">دخول</button>
 
-      <p class="auth-alt">مش عندك حساب؟ <a href="signup/freelancer.html">انضم كمستقل</a> · <a href="signup/client.html">سجّل كعميل</a></p>
-      <p class="form-note">للمشرف: بعد الدخول ستنتقل تلقائيًا للوحة التحكم.</p>
+      <p class="auth-alt"><span data-i18n="auth.loginNoAccount">مش عندك حساب؟</span> <a href="signup/freelancer.html" data-i18n="auth.loginSignUpFreelancer">انضم كمستقل</a> · <a href="signup/client.html" data-i18n="auth.loginSignUpClient">سجّل كعميل</a></p>
+      <p class="form-note" data-i18n="auth.loginAdminNote">للمشرف: بعد الدخول ستنتقل تلقائيًا للوحة التحكم.</p>
     </form>
   </section>
 
@@ -91,10 +91,10 @@
       const { error, data } = await signIn(email, password);
       if (error) {
         msg.style.color = "#b00020";
-        msg.textContent = error.message || "تعذّر الدخول";
+        msg.textContent = error.message || I18N.t("auth.loginError");
       } else {
         msg.style.color = "#1a7f37";
-        msg.textContent = "تم الدخول… جارِ التحويل";
+        msg.textContent = I18N.t("auth.loginSuccess");
         setTimeout(() => (location.href = "dashboard.html"), 400);
       }
     });

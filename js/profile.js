@@ -10,7 +10,7 @@
 
   const f = await getFreelancerById(id);
   if (!f) {
-    wrap.innerHTML = "<p class='pf-empty'>لم يتم العثور على هذا المستقل.</p>";
+    wrap.innerHTML = "<p class='pf-empty'>" + I18N.t("dashboard.profileNotFound") + "</p>";
     return;
   }
 
@@ -76,30 +76,29 @@
     </div>
 
     <div class="pf-box">
-      <h3>نبذة</h3>
-      <p class="pf-bio">${esc(f.bio || "لا توجد نبذة بعد.")}</p>
+      <h3>${I18N.t("dashboard.profileAbout")}</h3>
+      <p class="pf-bio">${esc(f.bio || I18N.t("dashboard.profileNoBio"))}</p>
     </div>
 
     <div class="pf-box">
-      <h3>المهارات</h3>
+      <h3>${I18N.t("dashboard.profileSkills")}</h3>
       <div class="pf-skills">${
-        skills.length ? skills.map((s) => `<span class="pf-skill">${esc(s)}</span>`).join("") : "<span class='pf-empty'>لم تُضف مهارات.</span>"
+        skills.length ? skills.map((s) => `<span class="pf-skill">${esc(s)}</span>`).join("") : "<span class='pf-empty'>" + I18N.t("dashboard.profileNoSkills") + "</span>"
       }</div>
     </div>
 
     <div class="pf-box">
-      <h3>مشاريعي وأعمالي</h3>
-      ${ projectsHtml || "<span class='pf-empty'>لا توجد صور أعمال بعد.</span>" }
+      <h3>${I18N.t("dashboard.profileProjects")}</h3>
+      ${ projectsHtml || "<span class='pf-empty'>" + I18N.t("dashboard.profileNoProjects") + "</span>" }
     </div>
 
     <div class="pf-box pf-recommend">
-      <h3>مستقلون موصى بهم</h3>
+      <h3>${I18N.t("dashboard.profileRecommended")}</h3>
       ${relatedHtml}
     </div>
 
     <div style="text-align:center;margin-top:20px">
-      <a class="btn btn-dark" href="https://wa.me/201556554537" target="_blank" rel="noopener">تواصل معه عبر واتساب</a>
-    </div>
+      <a class="btn btn-dark" href="https://wa.me/201556554537" target="_blank" rel="noopener">${I18N.t("dashboard.profileContact")}</a>
   `;
 
   function esc(s) {
