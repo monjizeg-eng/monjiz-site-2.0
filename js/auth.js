@@ -16,8 +16,18 @@
       const isFreelancer = form.id === "freelancerForm";
 
       const submit = async () => {
+        // 1) Create the Supabase Auth account (email + password)
+        const { data: authData, error: authError } = await signUp(data.email, data.password);
+        if (authError) {
+          alert("تعذّر إنشاء الحساب: " + (authError.message || "جرّب مرة أخرى"));
+          return;
+        }
+        const auth_id = authData && authData.user ? authData.user.id : null;
+
+        // 2) Save the profile linked to that auth user
         if (isFreelancer) {
           await saveFreelancer({
+            auth_id,
             name: data.name,
             phone: data.phone,
             email: data.email,
@@ -30,6 +40,7 @@
           });
         } else {
           await saveClient({
+            auth_id,
             name: data.name,
             company: data.company,
             phone: data.phone,

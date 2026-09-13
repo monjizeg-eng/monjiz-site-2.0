@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حسابي | منجز Monjiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .dash-wrap { max-width: 760px; margin: 0 auto; }
+    .dash-card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:32px; box-shadow:var(--shadow); margin-bottom:24px; }
+    .dash-card h2 { font-size:24px; font-weight:900; color:var(--ink); margin-bottom:6px; }
+    .dash-card .sub { color:var(--muted); font-size:14px; margin-bottom:20px; }
+    .dash-top { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+    .avatar-preview { width:64px; height:64px; border-radius:50%; object-fit:cover; border:2px solid var(--line); background:var(--beige); }
+    .portfolio-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; margin-top:6px; }
+    .work-tile { position:relative; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+    .work-tile img { width:100%; height:100px; object-fit:cover; display:block; }
+    .work-tile .del { position:absolute; top:6px; left:6px; background:var(--ink); color:#fff; border:none; border-radius:8px; padding:2px 8px; font-family:inherit; cursor:pointer; font-size:12px; }
+    .file-hint { font-size:12.5px; color:var(--muted); margin-top:6px; }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">م</span>
+        <span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+        <a href="freelancers.html" data-i18n="nav.freelancers">المستقلون</a>
+        <div class="lang-switch" aria-label="Language"></div>
+      </nav>
+      <a href="#" id="adminLink" class="btn btn-light btn-nav" style="display:none">لوحة المشرف</a>
+      <button class="nav-toggle" id="navToggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="dash-wrap">
+      <div class="dash-top">
+        <h1 style="font-size:30px;font-weight:900">حسابي</h1>
+        <button id="logoutBtn" class="btn btn-ghost btn-sm">تسجيل الخروج</button>
+      </div>
+      <p id="roleNote" style="color:var(--muted);margin-bottom:20px"></p>
+
+      <!-- ===== Freelancer panel ===== -->
+      <div class="dash-card" id="freelancerPanel" style="display:none">
+        <h2>ملف المستقل</h2>
+        <p class="sub">عدّل بياناتك وأضف صور أعمالك.</p>
+
+        <div class="field">
+          <label>الصورة الشخصية</label>
+          <div style="display:flex;align-items:center;gap:14px">
+            <img class="avatar-preview" id="avatarImg" alt="" />
+            <input class="input" id="frAvatarFile" type="file" accept="image/*" style="border:none" />
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field"><label>الاسم الكامل</label><input class="input" id="frName" /></div>
+          <div class="field"><label>رقم الواتساب</label><input class="input" id="frPhone" /></div>
+        </div>
+
+        <div class="field"><label>البريد الإلكتروني (للقراءة فقط)</label><input class="input" id="frEmail" disabled /></div>
+
+        <div class="row2">
+          <div class="field">
+            <label>التخصص</label>
+            <select class="input" id="frNiche">
+              <option value="design">تصميم ومحتوى بصري</option>
+              <option value="web">تطوير مواقع</option>
+              <option value="marketing">تسويق رقمي</option>
+              <option value="business">دعم أعمال</option>
+            </select>
+          </div>
+          <div class="field"><label>الأجر التقريبي (ج.م)</label><input class="input" id="frRate" type="number" /></div>
+        </div>
+
+        <div class="field"><label>المهارات (افصل بفاصلة)</label><input class="input" id="frSkills" /></div>
+        <div class="field"><label>سنوات الخبرة</label>
+          <select class="input" id="frExp">
+            <option>أقل من سنة</option><option>١ - ٣ سنوات</option><option>٣ - ٥ سنوات</option><option>أكثر من ٥ سنوات</option>
+          </select>
+        </div>
+        <div class="field"><label>نبذة قصيرة</label><textarea class="input" id="frBio" rows="3"></textarea></div>
+
+        <div class="field">
+          <label>صور أعمالك (بورتفوليو)</label>
+          <input class="input" id="frWorks" type="file" accept="image/*" multiple style="border:none" />
+          <p class="file-hint">اختر أكثر من صورة لعرض أعمالك.</p>
+          <div class="portfolio-grid" id="frWorksGrid"></div>
+        </div>
+
+        <button id="saveFreelancer" class="btn btn-dark btn-block">حفظ التغييرات</button>
+        <p id="frMsg" style="margin-top:12px;font-size:14px"></p>
+      </div>
+
+      <!-- ===== Client panel ===== -->
+      <div class="dash-card" id="clientPanel" style="display:none">
+        <h2>ملف العميل</h2>
+        <p class="sub">عدّل بيانات شركتك.</p>
+        <div class="row2">
+          <div class="field"><label>الاسم</label><input class="input" id="clName" /></div>
+          <div class="field"><label>الشركة / النشاط</label><input class="input" id="clCompany" /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>الهاتف (واتساب)</label><input class="input" id="clPhone" /></div>
+          <div class="field"><label>البريد الإلكتروني (للقراءة فقط)</label><input class="input" id="clEmail" disabled /></div>
+        </div>
+        <div class="field"><label>نوع المهام المفضلة</label>
+          <select class="input" id="clInterest">
+            <option value="design">تصميم ومحتوى بصري</option>
+            <option value="web">تطوير مواقع</option>
+            <option value="marketing">تسويق رقمي</option>
+            <option value="business">دعم أعمال</option>
+            <option value="other">أخرى</option>
+          </select>
+        </div>
+        <button id="saveClient" class="btn btn-dark btn-block">حفظ التغييرات</button>
+        <p id="clMsg" style="margin-top:12px;font-size:14px"></p>
+      </div>
+
+      <div class="dash-card" id="noProfile" style="display:none">
+        <h2>لا يوجد ملف بعد</h2>
+        <p class="sub">يبدو أن حسابك ليس لديه ملف. تواصل معنا عبر واتساب لربط حسابك.</p>
+        <a class="btn btn-dark" href="https://wa.me/201556554537" target="_blank" rel="noopener">تواصل عبر واتساب</a>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

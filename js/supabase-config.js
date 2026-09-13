@@ -1,6 +1,9 @@
 /* ===== منجز — اتصال قاعدة بيانات Supabase =====
-   يخزّن المستقلين والعملاء في قاعدة بيانات Supabase بدلاً من localStorage,
-   بحيث تظهر البيانات لجميع الزوار ولا تُنسى. */
+   يخزّن المستقلين والعملاء في Supabase، مع:
+   - تسجيل دخول (Auth)
+   - ملفات قابلة للتعديل للمستقلين والعملاء
+   - رفع صور الأعمال (Storage) للمستقلين
+   - لوحة تحكم للمشرف (Admins) */
 
 const SUPABASE_URL = "https://cbnvrpyiuvnszwmoyfif.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY =
@@ -20,44 +23,113 @@ function db() {
   return null;
 }
 
-/* --- Fallback (localStorage) if Supabase isn't reachable --- */
-function lsGet() {
-  try { return JSON.parse(localStorage.getItem("monjiz_users") || "[]"); }
-  catch (_) { return []; }
+/* ================= AUTH ================= */
+async function signUp(email, password) {
+  if (!db()) return { error: { message: "Supabase غير متصل" } };
+  return db().auth.signUp({ email, password });
 }
-function lsPush(rec) {
-  try {
-    const arr = lsGet();
-    arr.push({ ...rec, at: new Date().toISOString() });
-    localStorage.setItem("monjiz_users", JSON.stringify(arr));
-  } catch (_) {}
+async function signIn(email, password) {
+  if (!db()) return { error: { message: "Supabase غير متصل" } };
+  return db().auth.signInWithPassword({ email, password });
+}
+async function signOut() {
+  if (db()) await db().auth.signOut();
+}
+async function getSession() {
+  if (!db()) return null;
+  const { data } = await db().auth.getSession();
+  return data.session || null;
+}
+async function getUserId() {
+  const s = await getSession();
+  return s ? s.user.id : null;
 }
 
-/* --- Save a freelancer signup --- */
+/* ================= ROLE / PROFILES ================= */
+async function isAdmin(uid) {
+  if (!db() || !uid) return false;
+  const { data } = await db().from("admins").select("id").eq("id", uid).maybeSingle();
+  return !!data;
+}
+async function getFreelancerByAuth(uid) {
+  if (!db() || !uid) return null;
+  const { data } = await db().from("freelancers").select("*").eq("auth_id", uid).maybeSingle();
+  return data || null;
+}
+async function getClientByAuth(uid) {
+  if (!db() || !uid) return null;
+  const { data } = await db().from("clients").select("*").eq("auth_id", uid).maybeSingle();
+  return data || null;
+}
+async function updateFreelancer(uid, patch) {
+  if (!db()) return { error: { message: "no db" } };
+  return db().from("freelancers").update(patch).eq("auth_id", uid);
+}
+async function updateClient(uid, patch) {
+  if (!db()) return { error: { message: "no db" } };
+  return db().from("clients").update(patch).eq("auth_id", uid);
+}
+
+/* ================= PORTFOLIO / WORK PHOTOS ================= */
+async function uploadWork(uid, file) {
+  if (!db()) return { error: { message: "no db" } };
+  const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const path = `${uid}/${Date.now()}_${safe}`;
+  const { error } = await db().storage.from("works").upload(path, file);
+  if (error) return { error };
+  const { data } = db().storage.from("works").getPublicUrl(path);
+  return { path, url: data.publicUrl };
+}
+async function removeWork(path) {
+  if (!db() || !path) return;
+  await db().storage.from("works").remove([path]);
+}
+
+/* ================= RAW ACCESS (used by admin panel) ================= */
+async function adminAllFreelancers() {
+  if (!db()) return [];
+  const { data } = await db().from("freelancers").select("*").order("created_at", { ascending: false });
+  return data || [];
+}
+async function adminAllClients() {
+  if (!db()) return [];
+  const { data } = await db().from("clients").select("*").order("created_at", { ascending: false });
+  return data || [];
+}
+async function adminUpdateFreelancer(id, patch) {
+  return db().from("freelancers").update(patch).eq("id", id);
+}
+async function adminUpdateClient(id, patch) {
+  return db().from("clients").update(patch).eq("id", id);
+}
+async function adminDeleteFreelancer(id) {
+  return db().from("freelancers").delete().eq("id", id);
+}
+async function adminDeleteClient(id) {
+  return db().from("clients").delete().eq("id", id);
+}
+
+/* ================= SIGNUPS (still supported) ================= */
 async function saveFreelancer(f) {
   try {
     if (db()) {
       const { error } = await db().from("freelancers").insert([f]);
       if (!error) return { ok: true, remote: true };
+      return { ok: false, error };
     }
   } catch (_) {}
-  lsPush({ type: "freelancer", ...f });
-  return { ok: true, remote: false };
+  return { ok: false };
 }
-
-/* --- Save a client signup --- */
 async function saveClient(c) {
   try {
     if (db()) {
       const { error } = await db().from("clients").insert([c]);
       if (!error) return { ok: true, remote: true };
+      return { ok: false, error };
     }
   } catch (_) {}
-  lsPush({ type: "client", ...c });
-  return { ok: true, remote: false };
+  return { ok: false };
 }
-
-/* --- Read freelancers (all visitors see the same real data) --- */
 async function fetchFreelancers() {
   try {
     if (db()) {
@@ -69,6 +141,5 @@ async function fetchFreelancers() {
       if (!error && Array.isArray(data)) return data;
     }
   } catch (_) {}
-  // Fallback: any freelancers saved locally before Supabase was connected
-  return lsGet().filter((u) => u && u.type === "freelancer");
+  return [];
 }

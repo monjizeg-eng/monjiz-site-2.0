@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل الدخول | منجز Monjiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">م</span>
+        <span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+        <a href="freelancers.html" data-i18n="nav.freelancers">المستقلون</a>
+        <div class="lang-switch" aria-label="Language"></div>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="auth-page">
+    <form class="auth-card" id="loginForm" novalidate>
+      <a href="index.html" class="brand">
+        <span class="brand-mark">م</span>
+        <span class="brand-text" data-i18n="brand">منجز <em>Monjiz</em></span>
+      </a>
+      <div class="auth-head">
+        <h1>تسجيل الدخول</h1>
+        <p>ادخل لحسابك لتعديل ملفك أو إدارة مستقلّيك.</p>
+      </div>
+
+      <div class="field">
+        <label for="lnEmail">البريد الإلكتروني</label>
+        <input class="input" id="lnEmail" type="email" placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label for="lnPass">كلمة المرور</label>
+        <input class="input" id="lnPass" type="password" placeholder="••••••••" />
+      </div>
+
+      <div id="loginMsg" style="font-size:14px;margin-bottom:12px"></div>
+
+      <button type="submit" class="btn btn-dark btn-block">دخول</button>
+
+      <p class="auth-alt">مش عندك حساب؟ <a href="signup/freelancer.html">انضم كمستقل</a> · <a href="signup/client.html">سجّل كعميل</a></p>
+      <p class="form-note">للمشرف: بعد الدخول ستنتقل تلقائيًا للوحة التحكم.</p>
+    </form>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    const form = document.getElementById("loginForm");
+    const msg = document.getElementById("loginMsg");
+
+    // If already logged in, go to dashboard
+    (async () => {
+      if (await getUserId()) location.href = "dashboard.html";
+    })();
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("lnEmail").value.trim();
+      const password = document.getElementById("lnPass").value;
+      msg.textContent = "";
+      const { error, data } = await signIn(email, password);
+      if (error) {
+        msg.style.color = "#b00020";
+        msg.textContent = error.message || "تعذّر الدخول";
+      } else {
+        msg.style.color = "#1a7f37";
+        msg.textContent = "تم الدخول… جارِ التحويل";
+        setTimeout(() => (location.href = "dashboard.html"), 400);
+      }
+    });
+  </script>
+</body>
+</html>

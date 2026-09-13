@@ -11,6 +11,7 @@ const I18N = (function () {
       "nav.about": "من نحن",
       "nav.client": "للعملاء",
       "nav.join": "انضم كمستقل",
+      "nav.account": "حسابي",
       "brand": "منجز <em>Monjiz</em>",
 
       // Hero
@@ -207,6 +208,7 @@ const I18N = (function () {
       "nav.about": "About",
       "nav.client": "For clients",
       "nav.join": "Join as freelancer",
+      "nav.account": "Account",
       "brand": "<em>Monjiz</em> منجز",
 
       "hero.tag": "An Egyptian talent marketplace",
