@@ -26,6 +26,17 @@ const I18N = (function () {
       "hero.s3n": "٤ نجوم", "hero.s3l": "متوسط التقييم",
       "hero.s4n": "١٥ دقيقة", "hero.s4l": "متوسط الرد",
 
+      // Animated workspace
+      "workspace.eyebrow": "مساحة العمل المباشرة",
+      "workspace.title": "كل أدواتك، في مكان واحد.",
+      "workspace.sub": "تتابع المشاريع، تواصل مع المستقلين، وتلقى تنبيهات فورية دون أن تفقد أي مهمة.",
+      "workspace.point1": "تعاون سريع", "workspace.point1d": "تواصل فوري مع فريقك.",
+      "workspace.point2": "تقدم واضح", "workspace.point2d": "تقف فوق كل مهمة بسهولة.",
+      "workspace.point3": "عمل آمن", "workspace.point3d": "تجربة موثوقة ومشفافية.",
+      "workspace.windowTitle": "مساحة منجز",
+      "workspace.live": "أفضل حال", "workspace.project": "مشروع العملاء", "workspace.online": "متصل",
+      "workspace.progress": "التقدم", "workspace.task": "المهمة مكتملة", "workspace.activity": "آخر النشاط",
+
       // Services
       "services.eyebrow": "خدماتنا",
       "services.title": "أقسامنا الرئيسية",
@@ -298,6 +309,16 @@ const I18N = (function () {
       "hero.s2n": "+50", "hero.s2l": "Tasks done",
       "hero.s3n": "4★", "hero.s3l": "Average rating",
       "hero.s4n": "15 min", "hero.s4l": "Average reply",
+
+      "workspace.eyebrow": "Live workspace",
+      "workspace.title": "Everything your team needs, in one place.",
+      "workspace.sub": "Track projects, collaborate with freelancers, and receive instant updates without missing a task.",
+      "workspace.point1": "Fast collaboration", "workspace.point1d": "Stay in sync with your team.",
+      "workspace.point2": "Clear progress", "workspace.point2d": "Keep every task visible and moving.",
+      "workspace.point3": "Secure work", "workspace.point3d": "A reliable, transparent experience.",
+      "workspace.windowTitle": "Monjiz workspace",
+      "workspace.live": "All systems go", "workspace.project": "Client project", "workspace.online": "Online",
+      "workspace.progress": "Progress", "workspace.task": "Task completed", "workspace.activity": "Latest activity",
 
       "services.eyebrow": "Our Services",
       "services.title": "Our main categories",
